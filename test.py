@@ -11,18 +11,19 @@ def get_model():
 def on_change():
     st.session_state['history'] = st.session_state['user_log'][st.session_state['option']]
 
+dev = """:blue[**NLP Application - Conversational Chat Bot**]  
+    **Developed by** : Group 58  
+    AMAN CHAUDHARY (2022aa05016)  
+    ANEESH DAS (2022aa05135)  
+    NAVINDRA RAY (2022aa05024)  
+    VINODH KUMAR S (2022aa05190)"""
 st.set_page_config(
     page_title='Conversational Chat Bot',
     page_icon='💬',
     layout="wide",
     initial_sidebar_state="expanded",
     menu_items={
-    'About': f""":blue[**Conversational Chat Bot**]  
-    **Developed by** :  
-    AMAN CHAUDHARY (2022aa05016)  
-    ANEESH DAS (2022aa05135)  
-    NAVINDRA RAY (2022aa05024)  
-    VINODH KUMAR S (2022aa05190)"""})
+    'About': dev})
 st.markdown('<style>div.block-container{padding-top:1.5rem;}</style>', unsafe_allow_html=True)
 
 if 'user_log' not in st.session_state:
@@ -33,7 +34,9 @@ st.subheader("🤖 Conversational Chat Bot", anchor=False, divider='rainbow')
 
 info = st.empty()
 if len(st.session_state['history'])==0:
-    info.info("Hi, I'm your personal Assistant. Ask me anything.")
+    c1, c2,_ = info.columns(3)
+    c2.info(dev)
+    st.toast("**Hi, I'm your personal assistant. Ask me anything**")
 
 st.sidebar.markdown('📝 :blue[<u>**Chat History**</u>]', unsafe_allow_html=True)
 st.sidebar.radio(':blue[**Chat History**]', options=st.session_state['user_log'].keys(), label_visibility='collapsed', key='option', on_change=on_change)
