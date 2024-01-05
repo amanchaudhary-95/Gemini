@@ -32,12 +32,6 @@ if 'user_log' not in st.session_state:
 
 st.subheader("🤖 Conversational Chat Bot", anchor=False, divider='rainbow')
 
-info = st.empty()
-if len(st.session_state['history'])==0:
-    c1, c2,_ = info.columns(3)
-    c2.info(dev)
-    st.toast("**Hi, I'm your personal assistant. Ask me anything**")
-
 st.sidebar.markdown('📝 :blue[<u>**Chat History**</u>]', unsafe_allow_html=True)
 st.sidebar.radio(':blue[**Chat History**]', options=st.session_state['user_log'].keys(), label_visibility='collapsed', key='option', on_change=on_change)
 
@@ -46,7 +40,6 @@ for msg in st.session_state['history']:
     chat_msg.markdown(msg.parts[0].text, unsafe_allow_html=True)
 
 if prompt := st.chat_input('Ask me anything'):
-    info.empty()
     with st.chat_message("user", avatar='👤'):
         st.markdown(prompt, unsafe_allow_html=True)
     with st.chat_message("assistant", avatar='🤖'):
@@ -62,6 +55,11 @@ if prompt := st.chat_input('Ask me anything'):
                 place_holder.markdown(resp+"▌", unsafe_allow_html=True)
         place_holder.markdown(resp, unsafe_allow_html=True)
     st.session_state['history'] = chat.history
+
+if len(st.session_state['history'])==0:
+    c1, c2,_ = st.columns(3)
+    c2.info(dev)
+    st.toast("**Hi, I'm your personal assistant. Ask me anything**")
 
 st.sidebar.divider()
 col1, col2 = st.sidebar.columns(2)
