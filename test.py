@@ -65,7 +65,8 @@ st.sidebar.divider()
 col1, col2 = st.sidebar.columns(2)
 if col1.button('✨ New Chat'):
     his = st.session_state['history'].copy()
-    st.session_state['user_log'].update({st.session_state['history'][0].parts[0].text : his})
+    if len(st.session_state['history'])!=0:
+        st.session_state['user_log'].update({st.session_state['history'][0].parts[0].text : his})
     st.session_state['history'].clear()
     st.rerun()
 
